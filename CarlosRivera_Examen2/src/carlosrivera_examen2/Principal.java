@@ -6,6 +6,7 @@
 package carlosrivera_examen2;
 
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,6 +20,7 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
+        CargarTodo();
     }
 
     /**
@@ -55,6 +57,12 @@ public class Principal extends javax.swing.JFrame {
         tf_nombrecancion = new javax.swing.JTextField();
         tf_artistacancion = new javax.swing.JTextField();
         bt_crearcancion = new javax.swing.JButton();
+        cb_albums = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        tf_genero = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        tf_duracion = new javax.swing.JTextField();
         CrearAlbums = new javax.swing.JDialog();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -136,6 +144,12 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(38, 38, 38))
         );
 
+        CrearCanciones.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                CrearCancionesWindowActivated(evt);
+            }
+        });
+
         jLabel5.setText("Nombre");
 
         jLabel6.setText("Artista");
@@ -147,6 +161,12 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setText("Album");
+
+        jLabel10.setText("Genero");
+
+        jLabel11.setText("Duracion");
+
         javax.swing.GroupLayout CrearCancionesLayout = new javax.swing.GroupLayout(CrearCanciones.getContentPane());
         CrearCanciones.getContentPane().setLayout(CrearCancionesLayout);
         CrearCancionesLayout.setHorizontalGroup(
@@ -155,16 +175,20 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(CrearCancionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addGap(74, 74, 74)
-                .addGroup(CrearCancionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tf_artistacancion, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
-                    .addComponent(tf_nombrecancion))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CrearCancionesLayout.createSequentialGroup()
-                .addContainerGap(186, Short.MAX_VALUE)
-                .addComponent(bt_crearcancion)
-                .addGap(152, 152, 152))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel9))
+                .addGap(68, 68, 68)
+                .addGroup(CrearCancionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bt_crearcancion)
+                    .addGroup(CrearCancionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(cb_albums, 0, 169, Short.MAX_VALUE)
+                        .addComponent(tf_artistacancion)
+                        .addComponent(tf_nombrecancion)
+                        .addComponent(tf_genero)
+                        .addComponent(tf_duracion)))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         CrearCancionesLayout.setVerticalGroup(
             CrearCancionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,9 +201,21 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(CrearCancionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(tf_artistacancion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(CrearCancionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(tf_genero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(CrearCancionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(tf_duracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGroup(CrearCancionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cb_albums, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(27, 27, 27)
                 .addComponent(bt_crearcancion)
-                .addGap(80, 80, 80))
+                .addGap(89, 89, 89))
         );
 
         jLabel7.setText("Nombre");
@@ -247,6 +283,11 @@ public class Principal extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("Canciones");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuItem3.setText("Albums");
@@ -315,10 +356,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void bt_crearcancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_crearcancionActionPerformed
         // TODO add your handling code here:
-        al = new Album(tf_nombrecancion.getText(), tf_artistacancion.getText());
-        JOptionPane.showMessageDialog(this, "Album Creado");
-        tf_nombrecancion.setText("");
-        tf_artistacancion.setText("");
+
     }//GEN-LAST:event_bt_crearcancionActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -331,11 +369,43 @@ public class Principal extends javax.swing.JFrame {
 
     private void bt_crearalbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_crearalbumActionPerformed
         // TODO add your handling code here:
+        al = new Album(tf_nombrealbum.getText(), tf_artistaalbum.getText());
+        album.add(al);
+        JOptionPane.showMessageDialog(this, "Album Creado");
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        for (Album temp : album) {
+            modelo.addElement(temp);
+        }
+        cb_albums.setModel(modelo);
+        tf_nombrealbum.setText("");
+        tf_artistaalbum.setText("");
     }//GEN-LAST:event_bt_crearalbumActionPerformed
 
     private void tf_nombrealbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_nombrealbumActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tf_nombrealbumActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        if (cb_albums.getItemCount() == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Debe haber un álbum en existencia para poder crear una canción");
+        } else {
+            this.CrearCanciones.setModal(true);
+            this.CrearCanciones.pack();
+            this.CrearCanciones.setLocationRelativeTo(this);
+            this.CrearCanciones.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void CrearCancionesWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_CrearCancionesWindowActivated
+        // TODO add your handling code here:
+//        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+//        for (Album temp : album) {
+//            modelo.addElement(temp);
+//        }
+//        cb_albums.setModel(modelo);
+    }//GEN-LAST:event_CrearCancionesWindowActivated
 
     /**
      * @param args the command line arguments
@@ -379,7 +449,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton bt_crearalbum;
     private javax.swing.JButton bt_crearcancion;
     private javax.swing.JButton bt_crearusuarion;
+    private javax.swing.JComboBox<String> cb_albums;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -387,6 +460,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -398,7 +472,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPasswordField ps_password;
     private javax.swing.JTextField tf_artistaalbum;
     private javax.swing.JTextField tf_artistacancion;
+    private javax.swing.JTextField tf_duracion;
     private javax.swing.JTextField tf_edad;
+    private javax.swing.JTextField tf_genero;
     private javax.swing.JTextField tf_nombrealbum;
     private javax.swing.JTextField tf_nombrecancion;
     private javax.swing.JTextField tf_nombreusuario;
