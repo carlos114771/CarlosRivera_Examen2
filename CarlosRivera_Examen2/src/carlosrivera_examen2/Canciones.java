@@ -12,16 +12,16 @@ package carlosrivera_examen2;
 public class Canciones {
 
     String nombre;
-    String canciones;
+    String artista;
     int duracion;
     String genero;
 
     public Canciones() {
     }
 
-    public Canciones(String nombre, String canciones, int duracion, String genero) {
+    public Canciones(String nombre, String artista, int duracion, String genero) {
         this.nombre = nombre;
-        this.canciones = canciones;
+        this.artista = artista;
         this.duracion = duracion;
         this.genero = genero;
     }
@@ -35,11 +35,11 @@ public class Canciones {
     }
 
     public String getCanciones() {
-        return canciones;
+        return artista;
     }
 
-    public void setCanciones(String canciones) {
-        this.canciones = canciones;
+    public void setCanciones(String artista) {
+        this.artista = artista;
     }
 
     public int getDuracion() {

@@ -69,6 +69,13 @@ public class Principal extends javax.swing.JFrame {
         tf_nombrealbum = new javax.swing.JTextField();
         tf_artistaalbum = new javax.swing.JTextField();
         bt_crearalbum = new javax.swing.JButton();
+        LogIn = new javax.swing.JDialog();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        tf_usuariologin = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        ps_constraseñalogin = new javax.swing.JPasswordField();
+        Otromenu = new javax.swing.JDialog();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -270,6 +277,64 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(80, 80, 80))
         );
 
+        jLabel12.setText("Usuario");
+
+        jLabel13.setText("Contraseña");
+
+        jButton1.setText("Ingresar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout LogInLayout = new javax.swing.GroupLayout(LogIn.getContentPane());
+        LogIn.getContentPane().setLayout(LogInLayout);
+        LogInLayout.setHorizontalGroup(
+            LogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LogInLayout.createSequentialGroup()
+                .addGroup(LogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(LogInLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(LogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(LogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tf_usuariologin, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                            .addComponent(ps_constraseñalogin)))
+                    .addGroup(LogInLayout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(jButton1)))
+                .addContainerGap(149, Short.MAX_VALUE))
+        );
+        LogInLayout.setVerticalGroup(
+            LogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LogInLayout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addGroup(LogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(tf_usuariologin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addGroup(LogInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(ps_constraseñalogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(59, 59, 59)
+                .addComponent(jButton1)
+                .addContainerGap(75, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout OtromenuLayout = new javax.swing.GroupLayout(Otromenu.getContentPane());
+        Otromenu.getContentPane().setLayout(OtromenuLayout);
+        OtromenuLayout.setHorizontalGroup(
+            OtromenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        OtromenuLayout.setVerticalGroup(
+            OtromenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jMenu1.setText("Opciones");
@@ -299,6 +364,11 @@ public class Principal extends javax.swing.JFrame {
         jMenu1.add(jMenuItem3);
 
         jMenuItem4.setText("Login");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem4);
 
         jMenuItem5.setText("Guardar Usuarios");
@@ -343,7 +413,7 @@ public class Principal extends javax.swing.JFrame {
         u = new Usuario(tf_nombreusuario.getText(),
                 Integer.parseInt(tf_edad.getText()),
                 tf_username.getText(), ps_password.getText());
-
+        usuarios.add(u);
         au.cargarArchivoBinario();
         au.setUsuario(u);
         au.escribirArchivo();
@@ -356,6 +426,15 @@ public class Principal extends javax.swing.JFrame {
 
     private void bt_crearcancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_crearcancionActionPerformed
         // TODO add your handling code here:
+        c = new Canciones(tf_nombrecancion.getText(),
+                tf_artistacancion.getText(),
+                Integer.parseInt(tf_duracion.getText()), tf_genero.getText());
+        canciones.add(c);
+        JOptionPane.showMessageDialog(this, "Cancion creada");
+        tf_nombrecancion.setText("");
+        tf_artistacancion.setText("");
+        tf_duracion.setText("");
+        tf_genero.setText("");
 
     }//GEN-LAST:event_bt_crearcancionActionPerformed
 
@@ -407,6 +486,36 @@ public class Principal extends javax.swing.JFrame {
 //        cb_albums.setModel(modelo);
     }//GEN-LAST:event_CrearCancionesWindowActivated
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        boolean entro = false;
+        for (Usuario temp : usuarios) {
+            if (temp.getUsername().equals(tf_usuariologin.getText())
+                    && temp.getPassword().equals(ps_constraseñalogin.getText())) {
+                entro = true;
+            }
+        }
+        if (entro == true) {
+            Otromenu.setModal(true);
+            Otromenu.pack();
+            Otromenu.setLocationRelativeTo(this);
+            Otromenu.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Usuario/Contraseña invalidas");
+        }
+        
+        tf_usuariologin.setText("");
+        ps_constraseñalogin.setText("");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        this.LogIn.setModal(true);
+        this.LogIn.pack();
+        this.LogIn.setLocationRelativeTo(this);
+        this.LogIn.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -446,13 +555,18 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JDialog CrearAlbums;
     private javax.swing.JDialog CrearCanciones;
     private javax.swing.JDialog CrearUsuarios;
+    private javax.swing.JDialog LogIn;
+    private javax.swing.JDialog Otromenu;
     private javax.swing.JButton bt_crearalbum;
     private javax.swing.JButton bt_crearcancion;
     private javax.swing.JButton bt_crearusuarion;
     private javax.swing.JComboBox<String> cb_albums;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -469,6 +583,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JPasswordField ps_constraseñalogin;
     private javax.swing.JPasswordField ps_password;
     private javax.swing.JTextField tf_artistaalbum;
     private javax.swing.JTextField tf_artistacancion;
@@ -479,12 +594,14 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField tf_nombrecancion;
     private javax.swing.JTextField tf_nombreusuario;
     private javax.swing.JTextField tf_username;
+    private javax.swing.JTextField tf_usuariologin;
     // End of variables declaration//GEN-END:variables
     Usuario u = new Usuario();
     AdminUsuario au = new AdminUsuario("./Usuarios.cbm");
     ArrayList<Usuario> usuarios = new ArrayList();
     ArrayList<Canciones> canciones = new ArrayList();
     Album al = new Album();
+    Canciones c = new Canciones();
     ArrayList<Album> album = new ArrayList();
 
 }
