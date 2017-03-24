@@ -5,13 +5,14 @@
  */
 package carlosrivera_examen2;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Usuario Dell
  */
-public class Usuario {
+public class Usuario implements Serializable {
 
     String nombre;
     int edad;
@@ -19,6 +20,8 @@ public class Usuario {
     String password;
     ArrayList<Playlist> playlist = new ArrayList();
     ArrayList<Canciones> favoritos = new ArrayList();
+
+    private static final long SerialVersionUID = 777L;
 
     public Usuario() {
     }
